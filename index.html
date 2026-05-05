@@ -15,27 +15,21 @@
 
 *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui;}
 
-body{
-  background:var(--bg);
-  color:var(--text);
-}
+body{background:var(--bg);color:var(--text);scroll-behavior:smooth;}
 
 header{
   text-align:center;
-  padding:100px 20px;
+  padding:120px 20px;
 }
 
 h1{
-  font-size:52px;
+  font-size:54px;
   background:linear-gradient(90deg,#38bdf8,#6366f1);
   -webkit-background-clip:text;
   color:transparent;
 }
 
-.subtitle{
-  margin-top:10px;
-  color:#94a3b8;
-}
+.subtitle{color:#94a3b8;margin-top:10px;}
 
 .btn{
   margin-top:20px;
@@ -50,13 +44,10 @@ h1{
 section{
   max-width:1100px;
   margin:auto;
-  padding:60px 20px;
+  padding:80px 20px;
 }
 
-h2{
-  color:var(--accent);
-  margin-bottom:20px;
-}
+h2{color:var(--accent);margin-bottom:20px;}
 
 .grid{
   display:grid;
@@ -71,39 +62,34 @@ h2{
   transition:.3s;
 }
 
-.card:hover{
-  transform:translateY(-8px) scale(1.02);
-}
+.card:hover{transform:translateY(-10px);}
 
 .skills span{
   background:#1e293b;
-  padding:8px 12px;
-  border-radius:6px;
+  padding:10px;
   margin:5px;
+  border-radius:6px;
   display:inline-block;
 }
 
-footer{
-  text-align:center;
-  padding:30px;
-  border-top:1px solid #1e293b;
-}
+footer{text-align:center;padding:30px;border-top:1px solid #1e293b;}
 </style>
 </head>
 
 <body>
 
 <header>
-  <h1>Farazur Rahman</h1>
-  <p class="subtitle">DevOps Engineer | AWS | Kubernetes | Terraform</p>
-  <a href="#" class="btn">Download Resume</a>
+<h1>Farazur Rahman</h1>
+<p class="subtitle">DevOps Engineer | AWS | Kubernetes | Terraform</p>
+
+<a href="https://github.com/farazmba" class="btn">View GitHub</a>
 </header>
 
 <section>
 <h2>🚀 About</h2>
 <p>
-DevOps Engineer with hands-on experience in CI/CD pipelines, infrastructure automation,
-and cloud deployments using AWS, Docker, and Kubernetes.
+DevOps Engineer with hands-on experience in AWS, CI/CD pipelines, automation using Ansible,
+and containerized deployments using Docker.
 </p>
 </section>
 
@@ -114,9 +100,10 @@ and cloud deployments using AWS, Docker, and Kubernetes.
 <span>Docker</span>
 <span>Kubernetes</span>
 <span>Terraform</span>
+<span>Ansible</span>
 <span>GitHub Actions</span>
+<span>Jenkins</span>
 <span>Linux</span>
-<span>Monitoring</span>
 </div>
 </section>
 
@@ -126,51 +113,40 @@ and cloud deployments using AWS, Docker, and Kubernetes.
 
 <div class="card">
 <h3>CI/CD Pipeline</h3>
-<p>Automated deployment using GitHub Actions.</p>
+<p>Reduced deployment time by 40% using GitHub Actions.</p>
 </div>
 
 <div class="card">
-<h3>Terraform Infra</h3>
-<p>Provisioned AWS infrastructure using modular Terraform.</p>
+<h3>Terraform Infrastructure</h3>
+<p>Provisioned AWS infra reducing manual work by 80%.</p>
 </div>
 
 <div class="card">
-<h3>Kubernetes Deployment</h3>
-<p>Container orchestration with auto-scaling.</p>
+<h3>Dockerized Application</h3>
+<p>Improved consistency and deployment reliability.</p>
 </div>
 
 </div>
 </section>
 
 <section>
-<h2>📊 GitHub Activity</h2>
-<div id="github"></div>
+<h2>📈 Impact</h2>
+<p>
+✔ 100+ deployments<br>
+✔ 50+ automation scripts<br>
+✔ 99.9% uptime<br>
+</p>
 </section>
 
 <section>
-<h2>📞 9886427393</h2>
+<h2>📞 Contact</h2>
 <p>Email: farazkhanmba@gmail.com</p>
-<p>LinkedIn: linkedin.com/in/faraz</p>
+<p>GitHub: github.com/farazmba</p>
 </section>
 
 <footer>
 <p>© 2026 Farazur Rahman</p>
 </footer>
-
-<script>
-fetch("https://api.github.com/users/YOUR_GITHUB_USERNAME/repos")
-.then(res=>res.json())
-.then(data=>{
-  let html="";
-  data.slice(0,4).forEach(repo=>{
-    html+=`<div class="card">
-      <h3>${repo.name}</h3>
-      <p>${repo.description || "No description"}</p>
-    </div>`;
-  });
-  document.getElementById("github").innerHTML=html;
-});
-</script>
 
 </body>
 </html>
