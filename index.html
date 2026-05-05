@@ -1,194 +1,108 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Farazur Rahman | DevOps</title>
+═════════════════════════════════════════════════════
+# FILE: .github/workflows/update-readme.yml
+#
+# What it does:
+#   - Runs every 6 hours (or on every push to main)
+#   - Picks a RANDOM DevOps/cloud quote each time
+#   - Replaces the quote block in README.md between
+#     <!-- QUOTE_START --> and <!-- QUOTE_END --> markers
+#   - Commits & pushes so the profile always feels fresh
+#
+# Setup:
+#   Settings → Actions → General → Workflow permissions
+#   → Read and write → Save
+# ════════════════════════════════════════════════════════════
 
-<style>
-body {
-  margin: 0;
-  background: #020617;
-  color: #e2e8f0;
-  font-family: "Courier New", monospace;
-}
+name: 🔄 Refresh Profile README & Rotate Quote
 
-/* NAVBAR */
-nav {
-  display: flex;
-  justify-content: space-between;
-  padding: 15px 40px;
-  background: rgba(0,0,0,0.5);
-  backdrop-filter: blur(8px);
-}
+on:
+  schedule:
+    - cron: "0 */6 * * *"   # Every 6 hours
+  push:
+    branches: [main]
+  workflow_dispatch:         # Manual trigger from Actions tab
 
-nav .logo {
-  color: #00ff9f;
-}
+jobs:
+  refresh:
+    name: Rotate quote & refresh README
+    runs-on: ubuntu-latest
 
-nav a {
-  margin-left: 20px;
-  color: #94a3b8;
-  text-decoration: none;
-}
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-/* HERO */
-.hero {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 100px 80px;
-}
+      - name: 🎲 Pick a random DevOps quote & update README
+        run: |
+          # ── Quote bank ──────────────────────────────────────
+          QUOTES=(
+            "Don't just deploy — architect. This isn't infrastructure, it's a statement."
+            "Automate the boring. Build the extraordinary."
+            "Every container is a promise. Every pipeline is a commitment."
+            "Infrastructure is code. Treat it like one."
+            "The best deployment is the one nobody notices."
+            "Uptime is earned, not given."
+            "Ship fast, but never skip the security group."
+            "A good DevOps engineer makes complexity invisible."
+            "CI/CD isn't a tool — it's a philosophy."
+            "One bad config, one good lesson."
+            "Build systems that outlive your deadlines."
+            "Terraform today. Sleep better tonight."
+            "Monitoring is not optional. It's your early warning system."
+            "Kubernetes doesn't forgive untested YAMLs."
+            "The cloud is just someone else's computer — make it yours."
+            "Blue-green deployments: because rollbacks should be boring."
+            "Logs don't lie. Read them."
+            "Scale before you need to. Regret after you don't."
+            "DevOps is not a role — it's a mindset."
+            "Every outage is a free architecture review."
+          )
 
-.hero img {
-  width: 220px;
-  border-radius: 50%;
-  border: 3px solid #00ff9f;
-}
+          # Pick a random index
+          RANDOM_INDEX=$(( RANDOM % ${#QUOTES[@]} ))
+          CHOSEN="${QUOTES[$RANDOM_INDEX]}"
 
-.hero-text {
-  max-width: 600px;
-}
+          echo "✅ Selected quote: $CHOSEN"
 
-.hero-text h1 {
-  font-size: 60px;
-}
+          # Replace content between markers in README.md
+          python3 - <<EOF
+          import re
 
-.hero-text span {
-  color: #00ff9f;
-}
+          with open("README.md", "r") as f:
+              content = f.read()
 
-.tagline {
-  margin-top: 10px;
-  color: #94a3b8;
-}
+          new_block = f'<!-- QUOTE_START -->\n> *"{chosen}"*\n<!-- QUOTE_END -->'
 
-/* BUTTONS */
-.btn {
-  margin-top: 20px;
-  padding: 10px 20px;
-  border: 1px solid #00ff9f;
-  color: #00ff9f;
-  text-decoration: none;
-  display: inline-block;
-}
+          updated = re.sub(
+              r'<!-- QUOTE_START -->.*?<!-- QUOTE_END -->',
+              new_block,
+              content,
+              flags=re.DOTALL
+          )
 
-.btn:hover {
-  background: #00ff9f;
-  color: black;
-}
+          with open("README.md", "w") as f:
+              f.write(updated)
 
-/* SECTION */
-section {
-  padding: 80px;
-}
+          print("README.md updated successfully.")
+          EOF
+        env:
+          chosen: ${{ env.CHOSEN }}
 
-h2 {
-  color: #00ff9f;
-}
+      - name: 🕒 Stamp with timestamp
+        run: |
+          TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M UTC")
+          sed -i '/<!-- auto-updated:/d' README.md
+          echo "" >> README.md
+          echo "<!-- auto-updated: $TIMESTAMP -->" >> README.md
 
-/* GRID */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-  gap: 20px;
-}
+      - name: 📤 Commit & push (only if changed)
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
 
-/* CARD */
-.card {
-  background: #0f172a;
-  padding: 20px;
-  border: 1px solid #1e293b;
-}
+          git diff --quiet && echo "Nothing changed, skipping." && exit 0
 
-.card:hover {
-  border-color: #00ff9f;
-}
-
-/* FOOTER */
-footer {
-  text-align: center;
-  padding: 20px;
-  border-top: 1px solid #1e293b;
-}
-</style>
-</head>
-
-<body>
-
-<nav>
-  <div class="logo">faraz@devops:~$</div>
-  <div>
-    <a href="#about">about</a>
-    <a href="#skills">skills</a>
-    <a href="#projects">projects</a>
-    <a href="#contact">contact</a>
-  </div>
-</nav>
-
-<div class="hero">
-  <img src="https://via.placeholder.com/200" alt="profile">
-  
-  <div class="hero-text">
-    <h1>Faraz <span>Rahman</span></h1>
-    <p class="tagline">$ DevOps Engineer — CI/CD · AWS · Kubernetes · Terraform</p>
-
-    <p>
-      I automate infrastructure and build scalable cloud systems.  
-      🚀 100+ deployments | ⚡ 50% faster CI/CD | ☁️ 99.9% uptime
-    </p>
-
-    <a href="https://linkedin.com" class="btn">Connect</a>
-    <a href="https://github.com/farazmba" class="btn">GitHub</a>
-  </div>
-</div>
-
-<section id="about">
-<h2>about</h2>
-<p>
-DevOps Engineer with 2+ years experience in AWS, CI/CD pipelines,
-Docker, Kubernetes, and automation using Ansible.
-</p>
-</section>
-
-<section id="skills">
-<h2>skills</h2>
-<div class="grid">
-<div class="card">AWS</div>
-<div class="card">Docker</div>
-<div class="card">Kubernetes</div>
-<div class="card">Terraform</div>
-<div class="card">Ansible</div>
-<div class="card">GitHub Actions</div>
-</div>
-</section>
-
-<section id="projects">
-<h2>projects</h2>
-<div class="grid">
-
-<div class="card">
-<h3>CI/CD Pipeline</h3>
-<p>Reduced deployment time by 50% using GitHub Actions.</p>
-</div>
-
-<div class="card">
-<h3>Dockerized App</h3>
-<p>Improved deployment consistency across environments.</p>
-</div>
-
-</div>
-</section>
-
-<section id="contact">
-<h2>contact</h2>
-<p>Email: farazkhanmba@gmail.com</p>
-<p>GitHub: github.com/farazmba</p>
-</section>
-
-<footer>
-<p>© Farazur Rahman</p>
-</footer>
-
-</body>
-</html>
+          git add README.md
+          git commit -m "chore: rotate quote + refresh stats [skip ci]"
+          git push
