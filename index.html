@@ -3,127 +3,113 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Farazur Rahman | DevOps Engineer</title>
+<title>Farazur Rahman | DevOps</title>
 
 <style>
-:root{
---bg:#020617;
---card:#0f172a;
---accent:#38bdf8;
---text:#e2e8f0;
+body {
+  margin: 0;
+  background: #020617;
+  color: #e2e8f0;
+  font-family: "Courier New", monospace;
 }
 
-*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui;}
-
-body{
-background:var(--bg);
-color:var(--text);
-scroll-behavior:smooth;
+/* NAVBAR */
+nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 40px;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(8px);
 }
 
-/* NAV */
-nav{
-position:fixed;
-top:0;
-width:100%;
-background:rgba(2,6,23,0.7);
-backdrop-filter:blur(10px);
-padding:15px;
-text-align:center;
-z-index:1000;
+nav .logo {
+  color: #00ff9f;
 }
 
-nav a{
-margin:0 15px;
-color:white;
-text-decoration:none;
-font-size:14px;
+nav a {
+  margin-left: 20px;
+  color: #94a3b8;
+  text-decoration: none;
 }
 
 /* HERO */
-header{
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 100px 80px;
 }
 
-h1{
-font-size:60px;
-background:linear-gradient(90deg,#38bdf8,#6366f1);
--webkit-background-clip:text;
-color:transparent;
+.hero img {
+  width: 220px;
+  border-radius: 50%;
+  border: 3px solid #00ff9f;
 }
 
-.subtitle{
-color:#94a3b8;
-margin-top:10px;
+.hero-text {
+  max-width: 600px;
 }
 
-.metrics{
-margin-top:15px;
+.hero-text h1 {
+  font-size: 60px;
 }
 
-.metrics span{
-margin:0 10px;
-font-size:14px;
+.hero-text span {
+  color: #00ff9f;
 }
 
-.btn{
-margin-top:20px;
-padding:10px 20px;
-background:var(--accent);
-color:black;
-border-radius:8px;
-text-decoration:none;
+.tagline {
+  margin-top: 10px;
+  color: #94a3b8;
+}
+
+/* BUTTONS */
+.btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: 1px solid #00ff9f;
+  color: #00ff9f;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn:hover {
+  background: #00ff9f;
+  color: black;
 }
 
 /* SECTION */
-section{
-max-width:1100px;
-margin:auto;
-padding:80px 20px;
+section {
+  padding: 80px;
 }
 
-h2{
-color:var(--accent);
-margin-bottom:20px;
+h2 {
+  color: #00ff9f;
 }
 
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+  gap: 20px;
 }
 
 /* CARD */
-.card{
-background:var(--card);
-padding:20px;
-border-radius:12px;
-transition:.3s;
+.card {
+  background: #0f172a;
+  padding: 20px;
+  border: 1px solid #1e293b;
 }
 
-.card:hover{
-transform:translateY(-10px) scale(1.02);
-}
-
-/* SKILLS */
-.skills span{
-display:inline-block;
-margin:5px;
-padding:8px 12px;
-background:#1e293b;
-border-radius:6px;
+.card:hover {
+  border-color: #00ff9f;
 }
 
 /* FOOTER */
-footer{
-text-align:center;
-padding:30px;
-border-top:1px solid #1e293b;
+footer {
+  text-align: center;
+  padding: 20px;
+  border-top: 1px solid #1e293b;
 }
 </style>
 </head>
@@ -131,102 +117,77 @@ border-top:1px solid #1e293b;
 <body>
 
 <nav>
-<a href="#about">About</a>
-<a href="#impact">Impact</a>
-<a href="#skills">Skills</a>
-<a href="#projects">Projects</a>
-<a href="#experience">Experience</a>
-<a href="#contact">Contact</a>
+  <div class="logo">faraz@devops:~$</div>
+  <div>
+    <a href="#about">about</a>
+    <a href="#skills">skills</a>
+    <a href="#projects">projects</a>
+    <a href="#contact">contact</a>
+  </div>
 </nav>
 
-<header>
-<h1>Farazur Rahman</h1>
-<p class="subtitle">DevOps Engineer | Automating Cloud Infrastructure 🚀</p>
+<div class="hero">
+  <img src="https://via.placeholder.com/200" alt="profile">
+  
+  <div class="hero-text">
+    <h1>Faraz <span>Rahman</span></h1>
+    <p class="tagline">$ DevOps Engineer — CI/CD · AWS · Kubernetes · Terraform</p>
 
-<div class="metrics">
-<span>🚀 100+ Deployments</span>
-<span>⚡ 50% Faster CI/CD</span>
-<span>☁️ 99.9% Uptime</span>
+    <p>
+      I automate infrastructure and build scalable cloud systems.  
+      🚀 100+ deployments | ⚡ 50% faster CI/CD | ☁️ 99.9% uptime
+    </p>
+
+    <a href="https://linkedin.com" class="btn">Connect</a>
+    <a href="https://github.com/farazmba" class="btn">GitHub</a>
+  </div>
 </div>
 
-<a href="https://github.com/farazmba" class="btn">View GitHub</a>
-</header>
-
 <section id="about">
-<h2>🚀 About Me</h2>
+<h2>about</h2>
 <p>
-DevOps Engineer with 2+ years of experience in AWS, CI/CD pipelines,
-Docker, Kubernetes, and Infrastructure Automation.
-Focused on scalability, reliability, and automation.
-</p>
-</section>
-
-<section id="impact">
-<h2>📈 Impact</h2>
-<p>
-✔ Automated 50+ Ansible playbooks (70% time saved)<br>
-✔ Managed 100+ deployments with 98% availability<br>
-✔ Improved CI/CD speed by 50%<br>
-✔ Reduced manual effort by 80%<br>
-✔ Supported 25+ developers
+DevOps Engineer with 2+ years experience in AWS, CI/CD pipelines,
+Docker, Kubernetes, and automation using Ansible.
 </p>
 </section>
 
 <section id="skills">
-<h2>⚙️ Skills</h2>
-<div class="skills">
-<span>AWS</span>
-<span>Docker</span>
-<span>Kubernetes</span>
-<span>Terraform</span>
-<span>Ansible</span>
-<span>GitHub Actions</span>
-<span>Jenkins</span>
-<span>Linux</span>
-<span>MongoDB</span>
-<span>PostgreSQL</span>
+<h2>skills</h2>
+<div class="grid">
+<div class="card">AWS</div>
+<div class="card">Docker</div>
+<div class="card">Kubernetes</div>
+<div class="card">Terraform</div>
+<div class="card">Ansible</div>
+<div class="card">GitHub Actions</div>
 </div>
 </section>
 
 <section id="projects">
-<h2>📂 Projects</h2>
+<h2>projects</h2>
 <div class="grid">
 
 <div class="card">
-<h3>🚀 GitLab CI/CD Pipeline</h3>
-<p>
-Reduced deployment time by 40% using automated CI/CD pipeline.
-Achieved 99.9% uptime on AWS EC2.
-</p>
+<h3>CI/CD Pipeline</h3>
+<p>Reduced deployment time by 50% using GitHub Actions.</p>
 </div>
 
 <div class="card">
-<h3>🐳 Dockerized Two-Tier Application</h3>
-<p>
-Improved container performance by 30% and eliminated critical vulnerabilities.
-</p>
+<h3>Dockerized App</h3>
+<p>Improved deployment consistency across environments.</p>
 </div>
 
 </div>
-</section>
-
-<section id="experience">
-<h2>💼 Experience</h2>
-<p>
-<strong>Junior DevOps Engineer</strong><br>
-AL Manadah Modern Trad. & Cont. (2021–Present)<br><br>
-Worked on AWS deployments, CI/CD pipelines, Docker, and Ansible automation.
-</p>
 </section>
 
 <section id="contact">
-<h2>📞 Contact</h2>
+<h2>contact</h2>
 <p>Email: farazkhanmba@gmail.com</p>
 <p>GitHub: github.com/farazmba</p>
 </section>
 
 <footer>
-<p>© 2026 Farazur Rahman</p>
+<p>© Farazur Rahman</p>
 </footer>
 
 </body>
